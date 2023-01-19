@@ -1,24 +1,45 @@
-import logo from './logo.svg';
 import './App.css';
+import {useState} from 'react';
+import SubscriptionScreen from './components/SubscriptionScreen';
+import TimesPrimeUI from './components/TimesPrimeUI';
+import QRScreen from './components/QRScreen'
+import {
+  BrowserRouter,
+  Switch,
+  Route,
+} from "react-router-dom";
+import CredentialsScreen from './components/Credentials';
 
 function App() {
+
+  const [loading, setLoading ] = useState(false);
+  const [did, setDid] = useState("");
+  const [credentials,setCredentials] =  useState([])
+
+
+  const onSubscribe=()=>{
+    setLoading(true)
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+    <div classname="App">
+      <Switch>
+        <Route path="/" exact>
+        <TimesPrimeUI onSubscribe={onSubscribe}/>
+        </Route>
+        <Route path="/subscription" exact>
+        <SubscriptionScreen did={did} setCredentials={setCredentials} setDid={setDid} loading={loading} setLoading={setLoading} issueCredentials/>
+        </Route>
+        <Route path="/scandid" exact>
+        <QRScreen setDid={setDid}/>
+        </Route>
+        <Route path="/creds" exact>
+        <CredentialsScreen credentials={credentials}/>
+        </Route>
+      </Switch>
+      
+  </div>
+  </BrowserRouter>
   );
 }
 
