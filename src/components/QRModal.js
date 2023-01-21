@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { Button } from "@mui/material";
-import { QrReader } from "react-qr-reader";
+import QrReader from 'react-qr-scanner'
 
 const style = {
   position: "absolute",
@@ -61,16 +61,16 @@ function QRModal({ setVc,setOpenModal,setData,data}) {
             </Button>
           )}
           <QrReader
-            containerStyle={{ width: "50%" }}
-            onResult={(result, error) => {
-              if (!!result) {
-                setData(result?.text);
-              }
-
-              if (!!error) {
-                console.info(error);
-              }
-            }}
+          delay={200}
+          style={{
+            height: 500,
+            width: 500,
+          }}
+          onError={(error)=>{console.info(error)}}
+          onScan={(data)=>{
+            if(data){
+            setData(data.text)}}
+          }
           />
         </Box>
       </Box>
