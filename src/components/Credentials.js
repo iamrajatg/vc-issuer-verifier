@@ -59,9 +59,9 @@ function CredentialsScreen({ credentials }) {
 
               <a href={`tilwallet://addvc?vc=${btoa(JSON.stringify(cred))}`}>Load in Wallet App</a>
               <br />
-              {LOCAL_ENV && <a href={`exp://f2-kng.rajat_gupta94.19000.exp.direct:80/--/addvc?vc=${btoa(JSON.stringify(cred))}`}>
+              {/* {LOCAL_ENV && <a href={`exp://f2-kng.rajat_gupta94.19000.exp.direct:80/--/addvc?vc=${btoa(JSON.stringify(cred))}`}>
                 Load in Wallet App EXPO
-              </a>}
+              </a>} */}
             </div>
           </AccordionDetails>
         </Accordion>
