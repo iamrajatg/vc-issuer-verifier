@@ -3,7 +3,6 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { Button } from "@mui/material";
 import { QrReader } from "react-qr-reader";
-import { useHistory } from "react-router-dom";
 
 const style = {
   position: "absolute",
@@ -19,7 +18,6 @@ const style = {
   borderRadius: 10,
   boxShadow: 24,
   p: 4,
-  mt:'50px'
 };
 
 const innerContent = {
@@ -30,35 +28,34 @@ const innerContent = {
   height: "100%",
 };
 
-function QRScreen({ setDid }) {
-  const [data, setData] = useState("");
-  const history = useHistory();
+function QRModal({ setVc,setOpenModal,setData,data}) {
 
   return (
+    <Box sx={{ xIndex: 10 }}>
       <Box sx={style}>
         <Box sx={innerContent}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Scan DID QR
+            Scan Credential QR
           </Typography>
           {data && (
             <Button
               onClick={() => {
-                setDid(data);
-                history.replace(`/subscription`);
+                setVc(data);
+                setOpenModal(false)
               }}
               variant="contained"
               sx={{ width: "200px", mt: 2 }}
             >
-              Load Scanned DID
+              Login From Scanned Credential
             </Button>
           )}
           {!data && (
             <Button
               onClick={() => {
-                history.replace(`/subscription`);
+               setOpenModal(false)
               }}
               variant="contained"
-              sx={{ width: "200px", mt: 2}}
+              sx={{ width: "200px", mt: 2 }}
             >
               BACK
             </Button>
@@ -75,11 +72,10 @@ function QRScreen({ setDid }) {
               }
             }}
           />
-          <p>{data}</p>
-     
         </Box>
       </Box>
+    </Box>
   );
 }
 
-export default QRScreen;
+export default QRModal;

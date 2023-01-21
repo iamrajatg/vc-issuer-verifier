@@ -5,6 +5,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { Button, TextField } from "@mui/material";
 import {useHistory} from 'react-router-dom'
 import axios from 'axios'
+import { BASE_URL, ISSUER_DID } from "./config";
 
 
 const style = {
@@ -34,81 +35,34 @@ function SubscriptionScreen({ loading, setLoading ,did,setDid,setCredentials}) {
     if(!did)
     return
     setLoading(true)
-    const toiPromise = axios.post('',{
-
-    })
-    const etPromise = axios.post('',{
-
-    })
     try {
-      await setTimeout(()=>{
-
-      },1000)
-      // const credentials = await Promise.all([toiPromise,etPromise])
-      let credentials=[{
-        name:'TOI Subscription',
-        vc: `{
-          "@context": [
-          "https://www.w3.org/2018/credentials/v1",
-          "https://www.w3.org/2018/credentials/examples/v1"
-          ],
-          "id": "http://example.gov/credentials/3732",
-          "type": [
-          "VerifiableCredential",
-          "UniversityDegreeCredential"
-          ],
-          "issuer": {
-          "id": "did:web:vc.transmute.world"
+      const toiPromise = axios.post(`${BASE_URL}/vc/issue`,
+        {
+          "subjectDID":did,
+          "issuerDID":ISSUER_DID,
+          "duration":"2160",
+          "claims":{
+              "name":"TOI",
+              "url":`${window.location.origin}/subscriptions/toi`
           },
-          "issuanceDate": "2020-03-10T04:24:12.164Z",
-          "credentialSubject": {
-          "id": "did:example:ebfeb1f712ebc6f1c276e12ec21",
-          "degree": {
-          "type": "BachelorDegree",
-          "name": "Bachelor of Science and Arts"
-          }
+          "type":"Times Of India Subscription"
+      }
+      )
+      const etPromise = axios.post(`${BASE_URL}/vc/issue`,
+        {
+          "subjectDID":did,
+          "issuerDID":ISSUER_DID,
+          "duration":"2160",
+          "claims":{
+              "name":"ET",
+              "url":`${window.location.origin}/subscriptions/et`
           },
-          "proof": {
-          "type": "JsonWebSignature2020",
-          "created": "2020-03-21T17:51:48Z",
-          "verificationMethod": "did:web:vc.transmute.world#_Qq0UL2Fq651Q0Fjd6TvnYE-faHiOpRlPVQcY_-tA4A",
-          "proofPurpose": "assertionMethod",
-          "jws": "eyJiNjQiOmZhbHNlLCJjcml0IjpbImI2NCJdLCJhbGciOiJFZERTQSJ9..OPxskX37SK0FhmYygDk-S4csY_gNhCUgSOAaXFXDTZx86CmI5nU9xkqtLWg-f4cqkigKDdMVdtIqWAvaYx2JBA"
-          }
-          }`
-      },
-      {
-        name:'ET Subscription',
-        vc:`{
-          "@context": [
-          "https://www.w3.org/2018/credentials/v1",
-          "https://www.w3.org/2018/credentials/examples/v1"
-          ],
-          "id": "http://example.gov/credentials/3732",
-          "type": [
-          "VerifiableCredential",
-          "UniversityDegreeCredential"
-          ],
-          "issuer": {
-          "id": "did:web:vc.transmute.world"
-          },
-          "issuanceDate": "2020-03-10T04:24:12.164Z",
-          "credentialSubject": {
-          "id": "did:example:ebfeb1f712ebc6f1c276e12ec21",
-          "degree": {
-          "type": "BachelorDegree",
-          "name": "Bachelor of Science and Arts"
-          }
-          },
-          "proof": {
-          "type": "JsonWebSignature2020",
-          "created": "2020-03-21T17:51:48Z",
-          "verificationMethod": "did:web:vc.transmute.world#_Qq0UL2Fq651Q0Fjd6TvnYE-faHiOpRlPVQcY_-tA4A",
-          "proofPurpose": "assertionMethod",
-          "jws": "eyJiNjQiOmZhbHNlLCJjcml0IjpbImI2NCJdLCJhbGciOiJFZERTQSJ9..OPxskX37SK0FhmYygDk-S4csY_gNhCUgSOAaXFXDTZx86CmI5nU9xkqtLWg-f4cqkigKDdMVdtIqWAvaYx2JBA"
-          }
-          }`
-      }]
+          "type":"Economic Times Subscription"
+      }
+      )
+    
+      const credentials = await Promise.all([toiPromise,etPromise])
+      setLoading(false)
       if(credentials){
         setCredentials(credentials)
         setLoading(false)
@@ -116,10 +70,8 @@ function SubscriptionScreen({ loading, setLoading ,did,setDid,setCredentials}) {
       }
     } catch (error) {
       setLoading(false)
+      alert('Error Issuing Credentials,Please Try Again.')
     }
-   
-    
-    
   }
 
 
