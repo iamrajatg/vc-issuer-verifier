@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/vc-issuer-verifier/static/css/main.78992cdc.css",
+    "main.js": "/vc-issuer-verifier/static/js/main.efebb5e8.js",
+    "index.html": "/vc-issuer-verifier/index.html",
+    "main.78992cdc.css.map": "/vc-issuer-verifier/static/css/main.78992cdc.css.map",
+    "main.efebb5e8.js.map": "/vc-issuer-verifier/static/js/main.efebb5e8.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.78992cdc.css",
+    "static/js/main.efebb5e8.js"
+  ]
+}
