@@ -44,7 +44,7 @@ function Verifier({ match, history, location }) {
         (vcJson?.type?.[1] === "Economic Times+ Subscription" &&
           match.params.service === "et") ||
         (vcJson?.type?.[1] === "Times Of India+ Subscription" &&
-          match.params.service === "toi")
+          match.params.service === "toi") ||
           (vcJson?.type?.[1] === "Cricbuzz+ Subscription" &&
           match.params.service === "cricbuzz") ||
         (vcJson?.type?.[1] === "Gaana+ Subscription" &&
