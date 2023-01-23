@@ -26,8 +26,8 @@ function App() {
       <>
         <Box sx={{ flexGrow: 1,zIndex:100}}>
           <AppBar position="static" style={{ background: '#6B11DE'}} >
-            <Toolbar >
-              <IconButton
+            <Toolbar style={{flexDirection:'column'}}>
+              {/* <IconButton
                 size="large"
                 edge="start"
                 color="inherit"
@@ -36,12 +36,15 @@ function App() {
                 onClick={() => {history.push('/')}}
               >
                 <HomeIcon />
-              </IconButton>
+              </IconButton> */}
              
-              <div style={{cursor: 'pointer',flex:1,}} onClick={() => {history.push('/')}}>
-              <div >
+              <div style={{cursor: 'pointer',display:'block',flex:1}} onClick={() => {history.push('/')}}>
+              
               <img  style={{width:'200px',marginTop:'-2px'}}src="https://static.timesprime.com/3x/timesprime-2.png" alt="Times Prime Logo"></img>
               </div>
+              
+            
+              <div style={{display: 'block'}}>
               <div style={{cursor:'pointer',marginTop:'20px',width:'100px',display:'inline-block',marginRight:'20px'}} onClick={()=>{history.push('/subscriptions/toi')}}>
               <img style={{width:'100%',}} src="https://asiindia.org/wp-content/uploads/toi-logo.png" />
               </div>
