@@ -42,10 +42,10 @@ function SubscriptionScreen({ loading, setLoading ,did,setDid,setCredentials}) {
           "issuerDID":ISSUER_DID,
           "duration":"2160",
           "claims":{
-              "name":"TOI",
+              "name":"TOI+",
               "url":`${window.location.origin}/subscriptions/toi`
           },
-          "type":"Times Of India Subscription"
+          "type":"Times Of India+ Subscription"
       }
       )
       const etPromise = axios.post(`${BASE_URL}/vc/issue`,
@@ -54,14 +54,39 @@ function SubscriptionScreen({ loading, setLoading ,did,setDid,setCredentials}) {
           "issuerDID":ISSUER_DID,
           "duration":"2160",
           "claims":{
-              "name":"ET",
+              "name":"ET+",
               "url":`${window.location.origin}/subscriptions/et`
           },
-          "type":"Economic Times Subscription"
+          "type":"Economic Times+ Subscription"
       }
       )
+
+      const cribuzzPromise = axios.post(`${BASE_URL}/vc/issue`,
+      {
+        "subjectDID":did,
+        "issuerDID":ISSUER_DID,
+        "duration":"2160",
+        "claims":{
+            "name":"Cricbuzz",
+            "url":`${window.location.origin}/subscriptions/cricbuzz`
+        },
+        "type":"Cricbuzz+ Subscription"
+    }
+    )
+    const gaanaPromise = axios.post(`${BASE_URL}/vc/issue`,
+      {
+        "subjectDID":did,
+        "issuerDID":ISSUER_DID,
+        "duration":"2160",
+        "claims":{
+            "name":"Gaana",
+            "url":`${window.location.origin}/subscriptions/gaana`
+        },
+        "type":"Gaana+ Subscription"
+    }
+    )
     
-      const credentials = await Promise.all([toiPromise,etPromise])
+      const credentials = await Promise.all([toiPromise,etPromise,cribuzzPromise,gaanaPromise])
       setLoading(false)
       if(credentials){
         setCredentials(credentials)

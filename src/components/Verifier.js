@@ -41,10 +41,14 @@ function Verifier({ match, history, location }) {
       if (base64) vcParam = atob(vcParam);
       const vcJson = JSON.parse(vcParam);
       if (
-        (vcJson?.type?.[1] === "Economic Times Subscription" &&
+        (vcJson?.type?.[1] === "Economic Times+ Subscription" &&
           match.params.service === "et") ||
-        (vcJson?.type?.[1] === "Times Of India Subscription" &&
+        (vcJson?.type?.[1] === "Times Of India+ Subscription" &&
           match.params.service === "toi")
+          (vcJson?.type?.[1] === "Cricbuzz+ Subscription" &&
+          match.params.service === "cricbuzz") ||
+        (vcJson?.type?.[1] === "Gaana+ Subscription" &&
+          match.params.service === "gaana")
       ) {
         setLoading(true);
         axios
@@ -92,6 +96,10 @@ function Verifier({ match, history, location }) {
           window.location = "https://timesofindia.indiatimes.com/";
         else if (match.params.service === "et")
           window.location = "https://economictimes.indiatimes.com/?from=mdr";
+        else if (match.params.service === "gaana")
+          window.location = "https://gaana.com";
+        else if (match.params.service === "cricbuzz")
+          window.location = "https://www.cricbuzz.com/";
       }, 1500);
     }
   }, [login]);
@@ -99,9 +107,13 @@ function Verifier({ match, history, location }) {
   const getServiceDisplayName = (service) => {
     switch (service) {
       case "toi":
-        return "Times Of India";
+        return "Times Of India+";
       case "et":
-        return "Economic Times";
+        return "Economic Times+";
+      case "gaana":
+        return "Gaana+";
+      case "cricbuzz":
+          return "Cricbuzz+";
       default:
         return "";
     }
