@@ -39,7 +39,25 @@ function Verifier({ match, history, location }) {
   const verifyCredential = (vcParam, base64 = false) => {
     try {
       if (base64) vcParam = atob(vcParam);
-      const vcJson = JSON.parse(vcParam);
+      let vcJson = null
+      let url = ""
+      let body = null
+      console.log('param',vcParam)
+      if(base64){
+      const presentation = JSON.parse(vcParam);
+       vcJson = presentation.verifiableCredential
+       url = "/vc/presentation/verify"
+       body = {
+        presentation:presentation
+       }
+      }
+      else{
+        vcJson = JSON.parse(vcParam)
+        url = "/vc/verify"
+        body={
+          credential:vcJson
+        }
+      }
       if (
         (vcJson?.type?.[1] === "Economic Times+ Subscription" &&
           match.params.service === "et") ||
@@ -52,34 +70,37 @@ function Verifier({ match, history, location }) {
       ) {
         setLoading(true);
         axios
-          .post(BASE_URL + "/vc/verify", {
-            credential: vcJson,
-          })
+          .post(BASE_URL + url, body)
           .then((res) => {
             setLoading(false);
             if (res.data.verified === "true") {
               setLogin(true);
+              setVc("")
             } else {
               setLoading(false);
-              alert("Invalid Subscription Credential");
+              setVc("")
+              alert("Invalid Subscription Credential1");
             }
           });
       } else {
         setLoading(false);
-        alert("Invalid Subscription Credential");
+        setVc("")
+        alert(JSON.stringify(vcJson)+"-"+match.params.service);
       }
       setLoading(false);
     } catch (error) {
+      console.error(error)
       setLoading(false);
+      setVc("")
       alert("Some Error Occured While Verifying");
     }
   };
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
-    const vcParam = queryParams.get("vc");
+    const vcParam = queryParams.get("vp");
     if (vcParam) {
-      verifyCredential(vcParam, true);
+      verifyCredential(vcParam,true);
     }
   }, []);
 

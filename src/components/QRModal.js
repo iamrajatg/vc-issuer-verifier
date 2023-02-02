@@ -63,8 +63,8 @@ function QRModal({ setVc,setOpenModal,setData,data}) {
           <QrReader
           delay={200}
           style={{
-            height: 500,
-            width: 500,
+            height: 600,
+            width: 600,
           }}
           onError={(error)=>{console.info(error)}}
           onScan={(data)=>{
