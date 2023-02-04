@@ -43,7 +43,8 @@ function SubscriptionScreen({ loading, setLoading ,did,setDid,setCredentials}) {
           "duration":"2160",
           "claims":{
               "name":"TOI+",
-              "url":`${window.location.origin}/subscriptions/toi`
+              "url":`${window.location.origin}/subscriptions/toi`,
+              "img":`${window.location.origin}/toi.png`,
           },
           "type":"Times Of India+ Subscription"
       }
@@ -55,7 +56,8 @@ function SubscriptionScreen({ loading, setLoading ,did,setDid,setCredentials}) {
           "duration":"2160",
           "claims":{
               "name":"ET+",
-              "url":`${window.location.origin}/subscriptions/et`
+              "url":`${window.location.origin}/subscriptions/et`,
+              "img":`${window.location.origin}/et.png`,
           },
           "type":"Economic Times+ Subscription"
       }
@@ -68,7 +70,8 @@ function SubscriptionScreen({ loading, setLoading ,did,setDid,setCredentials}) {
         "duration":"2160",
         "claims":{
             "name":"Cricbuzz",
-            "url":`${window.location.origin}/subscriptions/cricbuzz`
+            "url":`${window.location.origin}/subscriptions/cricbuzz`,
+            "img":`${window.location.origin}/cricbuzz.png`,
         },
         "type":"Cricbuzz+ Subscription"
     }
@@ -80,7 +83,8 @@ function SubscriptionScreen({ loading, setLoading ,did,setDid,setCredentials}) {
         "duration":"2160",
         "claims":{
             "name":"Gaana",
-            "url":`${window.location.origin}/subscriptions/gaana`
+            "url":`${window.location.origin}/subscriptions/gaana`,
+            "img" : `${window.location.origin}/gaana.jpg`,
         },
         "type":"Gaana+ Subscription"
     }
